@@ -1,0 +1,8 @@
+server:
+  port: 8089
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.101.61:3306/bwoil_migration?allowMultiQueries=true&autoReconnect=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: root
+    password: bwoil@20141030
+    driver-class-name: com.mysql.jdbc.Driver
