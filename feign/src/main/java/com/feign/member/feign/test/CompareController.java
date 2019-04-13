@@ -1,4 +1,4 @@
-package com.feign.member;
+package com.feign.member.feign.test;
 
 import com.bwoil.c2b.utils.api.dto.ListResultObject;
 import com.bwoil.c2b.utils.api.dto.ResultObject;

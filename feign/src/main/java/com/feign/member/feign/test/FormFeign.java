@@ -1,4 +1,4 @@
-package com.feign.member;
+package com.feign.member.feign.test;
 
 import feign.Logger;
 import feign.codec.Decoder;
@@ -23,7 +23,7 @@ import java.util.Map;
  * @Description:
  */
 //192.168.101.30
-//    http://192.168.101.23:8086/#/home/project/inside/api/detail?apiID=32&projectID=3
+//http://192.168.101.23:8086/#/home/project/inside/api/detail?apiID=32&projectID=3
 
 @FeignClient(name = "xxx", url = "http://192.168.101.23:8086", configuration = FormFeign.FormSupportConfig.class)
 public interface FormFeign {

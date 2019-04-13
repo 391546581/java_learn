@@ -25,7 +25,6 @@ public interface MemberInfoFeign {
 //    @RequestMapping(path="/api/member/login",headers = {"boVer=1.0","boPlat=APP" ,"boDes=0"}, method = RequestMethod.POST)
     //@RequestHeader("token") String token
     @RequestLine("POST /api/member/login")
-
     ResultObject<?> login(Map req);
 
 }
