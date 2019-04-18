@@ -25,4 +25,5 @@ public interface MemberFeign{
     @RequestLine("POST /member/account/signin")
     JSONObject signin(@RequestBody LoginReq req);
 
+
 }

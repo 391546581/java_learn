@@ -57,7 +57,6 @@ public class ExecutorConfig {
         MemberDao.setJdbcTemplate(JdbcTemplateUtils.getJdbcTemplate());
         List<Members> members = MemberDao.queryMembersByPage(1);
 
-
         members.forEach(x->{
         asyncServiceExecutor().execute(
             ()->{
@@ -70,6 +69,7 @@ public class ExecutorConfig {
 
     private static void checkLoginJava(Members x) {
         MemberInfoFeign memberInfoFeign = (MemberInfoFeign) FeignConfig.connectJava(MemberInfoFeign.class);
+
         Map req = new HashMap();
         req.put("mobile",x.getMobile());
         req.put("password", MD5Util.encode("a123456"));
@@ -87,6 +87,31 @@ public class ExecutorConfig {
         if(result.getCode()!= ErrorCodeEnum.SUCCESS.code()){
             Result.setResult(x.mobile, ErrorType.loginPassError);
         }
+        checkTransPwd(x,memberInfoFeign);
+    }
+
+    private static void checkTransPwd(Members x, MemberInfoFeign memberInfoFeign) {
+        Map req = new HashMap();
+        req.put("memberId",x.getMemberId());
+        req.put("password", MD5Util.encode("a123456"));
+        req.put("terminal ","");
+        req.put("ip","");
+        ResultObject result = memberInfoFeign.checkTransPwd(req);
+        System.out.println(Thread.currentThread().getId()+ " :" + JacksonUtil.toJson(result));
+
+        checkAccountInfo(x);
+    }
+
+    private static void checkAccountInfo(Members x) {
+        MemberInfoFeign memberInfoFeign = (MemberInfoFeign) FeignConfig.connect(MemberInfoFeign.class);
+
+        Map header = new HashMap();
+        header.put("boVer","1.0");
+        header.put("boPlat","APP");
+        header.put("boDes","0");
+        header.put("boToken","974a3e3c192504e2563d5adb43978746");
+        ResultObject result = memberInfoFeign.accountInfo(header);
+        System.out.println(Thread.currentThread().getId()+ " :" + JacksonUtil.toJson(result));
     }
 
     private static void checkLoginPass(Members x) {

@@ -29,7 +29,7 @@ public interface FeignConfig {
 //                .decoder(decoder)
 //                .errorDecoder(new GitHubErrorDecoder(decoder))
                 .logger(new Logger.ErrorLogger())
-                .logLevel(Logger.Level.FULL)
+                .logLevel(Logger.Level.BASIC)
                 .target(t, "http://192.168.101.59:8001/api");
     }
     static Object connectJava(Class t) {

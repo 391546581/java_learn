@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入外部配置文件 -->
+    <properties resource="mysql.properties"></properties>
+
+    <!-- 为JAVA Bean起类别名 -->
+    <typeAliases>
+        <!-- 别名方式1，一个一个的配置 type中放置的是类的全路径，alias中放置的是类别名 <typeAliase type="com.cy.mybatis.beans.UserBean"
+            alias="UserBean"/> -->
+        <!-- 别名方式2，自动扫描，将JAVA类的类名作为类的类别名 -->
+        <package name="com.feign.task.mybatis"/>
+
+    </typeAliases>
+
+
+    <!-- 配置mybatis运行环境 -->
+    <environments default="test">
+        <environment id="test">
+            <!-- type=jdbc 代表使用JDBC的提交和回滚来管理事物 -->
+            <transactionManager type="JDBC" />
+
+            <!-- mybatis提供了3种数据源类型，分别是：POOLED，UNPOOLED，JNDI -->
+            <!-- POOLED 表示支持JDBC数据源连接池 -->
+            <!-- UNPOOLED 表示不支持数据 源连接池 -->
+            <!-- JNDI表示支持外部数据源连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 当自己使用的是接口方法和Mapper.xml的方式时 ，这里是告知的是.xml的映射文件 -->
+        <!-- 告知映射文件方式1，一个一个的配置 -->
+         <!--<mapper resource="com/cj/mybatis/mapper/UserMapper.xml"/> -->
+         <mapper resource="mapper/UserMapper.xml"/>
+        <!--<mapper class="com.cj.mybatis2.mapper.UserInterfaceFunction"/>-->
+        <!--<mapper class="com.feign.task.mybatis.mapper.UserMapper"/>-->
+        <!-- 告知映射文件方式2，直接将包地址写上，会自动去包里找 。如果要使用这种方式，必须要求接口名称和映射文件名称必须完全一样才可以，否则报Invalid bound statement-->
+        <!--<package name="com/feign/task/mybatis/mapper"/>-->
+
+    </mappers>
+
+</configuration>
