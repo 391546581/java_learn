@@ -1,0 +1,49 @@
+package com.test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+/**
+ * @author BlueWang
+ * @ClassName: InsertDB
+ * @Description:
+ * @date 2019/9/25 9:38
+ */
+public class InsertDB {
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        String Url = "jdbc:mysql://localhost:3306/apos_mall?useUnicode=true&characterEncoding=UTF-8";//参数参考MySql连接数据库常用参数及代码示例
+        String name = "root";//数据库用户名
+        String psd = "root";//数据库密码
+        String jdbcName = "com.mysql.jdbc.Driver";//连接MySql数据库
+        Class.forName(jdbcName);//向DriverManager注册自己
+
+        String sql = "insert into mall_properties values(?,?,?,?)";//数据库操作语句（插入）
+        try {
+            Class.forName(jdbcName);//向DriverManager注册自己
+            Connection con = DriverManager.getConnection(Url, name, psd);//与数据库建立连接
+            PreparedStatement pst = con.prepareStatement(sql);//用来执行SQL语句查询，对sql语句进行预编译处理
+//            pst.setInt(1, 0);
+//            pst.setString(2, "test"+new Random().nextInt(9999));
+//            pst.setString(3, "zh_cn");
+//            pst.setString(4, "测试");
+
+            pst.setInt(1, 0);
+            pst.setString(2, "USER_NOT_REALNAME");
+
+            pst.setString(3, "zh_CN");
+            pst.setString(4, "用户尚未注册");
+            pst.executeUpdate();
+
+            pst.setString(3, "en_US");
+            pst.setString(4, "user not realname");
+            pst.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {//执行与数据库建立连接需要抛出SQL异常
+            e.printStackTrace();
+        }
+    }
+}
